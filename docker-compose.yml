@@ -1,0 +1,71 @@
+version: '3'
+
+networks:
+  nextia-network:
+    driver: bridge 
+
+services:
+    api:
+        build:
+          context: ./
+          dockerfile: Dockerfile
+        image: nextia-back
+        container_name: nextia-backend
+        restart: unless-stopped
+        working_dir: /var/www/
+        command: /bin/sh -c "composer install && php -S 0.0.0.0:80 -t public"
+        ports:
+            - 8000:80
+        volumes:
+            - .:/var/www
+            - ~/.ssh:/root/.ssh
+        depends_on:
+            - "db"
+        links:
+            - db
+        environment:
+            DB_CONNECTION: pgsql
+            DB_HOST: db
+            DB_PORT: 5432
+            DB_DATABASE: nextia-tech
+            DB_USERNAME: root
+            DB_PASSWORD: password
+        networks:
+            - nextia-network 
+    db:
+        image: postgres:12.3-alpine
+        container_name: nextia-db
+        restart: unless-stopped
+        environment:
+            POSTGRES_USER: root
+            POSTGRES_PASSWORD: password
+            POSTGRES_DB: nextia-tech
+        ports:
+            - '5432:5432'
+        expose:
+            - '5432'
+        volumes:
+            - ./docker/postgres:/var/lib/postgresql/data
+        networks:
+            - nextia-network
+
+    phppgadmin:
+        restart: always
+        image: dockage/phppgadmin:latest
+        ports:
+            - "8080:80"
+            - "443:443"
+        environment:
+            - PHP_PG_ADMIN_SERVER_DESC=PostgreSQL
+            - PHP_PG_ADMIN_SERVER_HOST=db
+            - PHP_PG_ADMIN_SERVER_PORT=5432
+        networks:
+            - nextia-network
+        depends_on:
+            - "db"
+        links:
+            - db
+
+# Names our volume
+volumes:
+  my-db:
