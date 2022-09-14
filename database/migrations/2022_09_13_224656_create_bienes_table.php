@@ -1,21 +1,29 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
+use App\Core\Base\BaseMigration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBienesTable extends Migration
+class CreateBienesTable extends BaseMigration
 {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
+    public function up(string $tableName='Bienes')
     {
-        Schema::create('bienes', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        parent::up($tableName);
+
+        Schema::table($tableName, function (Blueprint $table) {
+            $table->string('articulo', 255);
+            $table->string('descripcion', 255);
+            $table->unsignedBigInteger("usuario_id");
+            #$table->foreign("usuario_id")->reference("id")->on("users");
+        });
+
+        Schema::table($tableName, function(Blueprint $table) {
+            $table->foreign('usuario_id')->references('id')->on('users');
         });
     }
 
@@ -26,6 +34,6 @@ class CreateBienesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bienes');
+        Schema::dropIfExists('Bienes');
     }
 }

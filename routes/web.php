@@ -22,7 +22,18 @@ $router->group(['prefix'=>'api/v1'], function () use ($router) {
     $router->post('/login', 'UserController@authenticate');
     $router->post('/signup', 'UserController@createUser');
 
-    $router->group(['middleware' => 'auth','prefix' => 'auth'], function () use ($router) {
-        $router->post('/bienes', 'AuthController@logout');
+    $router->group(['middleware' => 'auth'], function () use ($router) {
+        $router->get('/me', 'UserController@me');
+    });
+
+    $router->group(['middleware' => 'auth','prefix'=>'bien'], function () use ($router) {
+        $router->get('/list', 'BienController@listBiens');
+        $router->post('/create', 'BienController@createBien');
+        $router->get('/view/{id}', 'BienController@viewBien');
+        $router->put('/update/{id}', 'BienController@updateBien');
+        $router->delete('/delete/{id}', 'BienController@deleteBien');
+        $router->get('/viewmany', 'BienController@viewManyBien');
+
+        $router->get('/seed', 'BienController@seedBienes');
     });
 });

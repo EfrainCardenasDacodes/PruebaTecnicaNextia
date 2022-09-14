@@ -128,4 +128,12 @@ class UserController extends Controller
                 'expires_in' => auth()->factory()->getTTL() * 60 * 24
             ]), 200);
     }
+
+    function me(Request $request): JsonResponse
+    {
+        // Return the json representation for the user
+        return response()->json(new ApiResponse(200, [
+                'user' => auth()->user(),
+            ]), 200);
+    }
 }
