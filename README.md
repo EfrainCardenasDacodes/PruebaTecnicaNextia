@@ -1,24 +1,27 @@
-# Lumen PHP Framework
+# Nextia Tech Practice
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://img.shields.io/packagist/dt/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://img.shields.io/packagist/v/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://img.shields.io/packagist/l/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
+Nextia Tech Practice by Efraín Cárdenas
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+## Requirements
 
-## Official Documentation
+* Docker and Docker-Compose
 
-Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
+## Installation
 
-## Contributing
+* Be sure that Docker Daemon is running.
+* Go to root folder and build the Docker image with "docker-compose build".
+* Up the instance with "docker-compose up -d".
 
-Thank you for considering contributing to Lumen! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Endpoints
 
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- Users
+	- Sign up: 	POST http://localhost:8000/api/v1/signup/
+	- Login: 	POST http://localhost:8000/api/v1/login/
+- Bienes
+	- Load CSV: 	GET http://localhost:8000/api/v1/bien/seed
+	- List Bienes: 	GET http://localhost:8000/api/v1/bien/list/
+	- Get Bien: 	GET http://localhost:8000/api/v1/bien/view/{id}
+	- Create Bien: 	POST http://localhost:8000/api/v1/bien/create/
+	- Get Many: 	GET http://localhost:8000/api/v1/bien/viewmany?id[]=3&id[]=4
+	- Update Bien: 	PUT http://localhost:8000/api/v1/bien/update/{id}
+	- Delete Bien: 	DELETE http://localhost:8000/api/v1/bien/delete/{id}
