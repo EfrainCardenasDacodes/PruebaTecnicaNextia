@@ -11,6 +11,8 @@ Nextia Tech Practice by Efraín Cárdenas
 * Be sure that Docker Daemon is running.
 * Go to root folder and build the Docker image with "docker-compose build".
 * Up the instance with "docker-compose up -d".
+* Execute the migrations with "docker-compose run --rm api php artisan migrate"
+* You can check the results with PHPPgAdmin, mounted on http://localhost:8080/
 
 ## Endpoints
 
